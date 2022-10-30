@@ -1,4 +1,4 @@
-@{
+﻿@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -116,13 +116,7 @@
         </div>
 
         <div class="card-footer clearfix">
-            <a href="javascript:void(0)" class="btn btn-sm btn-secondary float-right">Visualizar Mais Chamados</a>
+            <a href="@Url.Action("Index", "Tickets")" class="btn btn-sm btn-secondary float-right">Visualizar Mais Chamados</a>
         </div>
     </div>
 </div>
-
-<script>
-    function convertStatusInColor(status){
-        console.log('chamou');
-    }
-</script>
