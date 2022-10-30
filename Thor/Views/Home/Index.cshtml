@@ -2,13 +2,16 @@
     ViewData["Title"] = "Home Page";
 }
 
+@using Thor.Helpes;
+@model Thor.ViewModel.Ticket.HomeViewModel;
+
 <!-- Small boxes (Stat box) -->
 <div class="row">
     <div class="col-lg-3 col-6">
         <!-- small box -->
-        <div class="small-box bg-info-final">
+        <div class="small-box bg-teal">
             <div class="inner">
-                <h3>***</h3>
+                <h3>@Model.CountTicketsOpen</h3>
 
                 <p>Chamados em Aberto</p>
             </div>
@@ -23,7 +26,7 @@
         <!-- small box -->
         <div class="small-box bg-warning-final">
             <div class="inner">
-                <h3>***</h3>
+                <h3>@Model.CountTicketsInProgess</h3>
 
                 <p>Chamados em Andamento</p>
             </div>
@@ -36,11 +39,11 @@
     <!-- ./col -->
     <div class="col-lg-3 col-6">
         <!-- small box -->
-        <div class="small-box bg-teal">
+        <div class="small-box bg-info-final">
             <div class="inner">
-                <h3>***</h3>
+                <h3>@Model.CountTicketsCompleted</h3>
 
-                <p>Chamados Fechados</p>
+                <p>Chamados Concluídos</p>
             </div>
             <div class="icon">
                 <i class="ion ion-stats-bars"></i>
@@ -55,7 +58,7 @@
         <!-- small box -->
         <div class="small-box bg-danger-final">
             <div class="inner">
-                <h3>***</h3>
+                <h3>@Model.CountTicketsCanceled</h3>
 
                 <p>Chamados Cancelados</p>
             </div>
@@ -94,38 +97,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td><a href="pages/examples/invoice.html">1</a></td>
-                            <td>Call of Duty IV não abre</td>
-                            <td><span class="badge badge-success">Aberto</span></td>
-                            <td>
-                                <div class="sparkbar" data-color="#00a65a" data-height="20">05/08/2022 14:00 PM</div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><a href="pages/examples/invoice.html">2</a></td>
-                            <td>Samsung Smart TV Não liga</td>
-                            <td><span class="badge badge-warning">Em Andamento</span></td>
-                            <td>
-                                <div class="sparkbar" data-color="#f39c12" data-height="20">05/08/2022 14:00 PM</div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><a href="pages/examples/invoice.html">3</a></td>
-                            <td>Sem rede</td>
-                            <td><span class="badge badge-danger">Cancelado</span></td>
-                            <td>
-                                <div class="sparkbar" data-color="#f56954" data-height="20">05/08/2022 14:00 PM</div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><a href="pages/examples/invoice.html">4</a></td>
-                            <td>Sem acesso a internet</td>
-                            <td><span class="badge badge-info">Finalizado</span></td>
-                            <td>
-                                <div class="sparkbar" data-color="#00c0ef" data-height="20">05/08/2022 14:00 PM</div>
-                            </td>
-                        </tr>
+                        @foreach(var item in Model.TicketsTable.OrderBy(i=>i.CreatedOn)){
+                            <tr>
+                                <td><a href="pages/examples/invoice.html">@Html.DisplayFor(modelItem => item.Id)</a></td>
+                                <td>@Html.DisplayFor(modelItem => item.Title)</td>
+                                <td><span class="badge @item.ColorStatus">@Html.DisplayFor(modelItem =>item.Status)</span></td>
+                                <td>
+                                    <div class="sparkbar" data-color="#00a65a" data-height="20">@Html.DisplayFor(modelItem => item.CreatedOn)</div>
+                                </td>
+                            </tr>
+                        }
                     </tbody>
                 </table>
             </div>
@@ -136,3 +117,9 @@
         </div>
     </div>
 </div>
+
+<script>
+    function convertStatusInColor(status){
+        console.log('chamou');
+    }
+</script>
