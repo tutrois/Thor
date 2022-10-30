@@ -7,19 +7,19 @@ namespace Thor.Service
 {
     public class TicketService : ITicket
     {
-        private readonly string urlApi = "https://yggbrasil-odin.azurewebsites.net/api/Tarefa";
+        private readonly string urlApi = "https://yggbrasil-odin.azurewebsites.net/api/Tickets";
 
         public List<TicketModel> GetAll()
         {
-            var users = new List<TicketModel>();
+            var tickets = new List<TicketModel>();
 
             try
             {
-                using (var cliente = new HttpClient())
+                using (var client = new HttpClient())
                 {
-                    var result = cliente.GetStringAsync(urlApi);
+                    var result = client.GetStringAsync(urlApi);
                     result.Wait();
-                    users = JsonConvert.DeserializeObject<TicketModel[]>(result.Result).ToList();
+                    tickets = JsonConvert.DeserializeObject<TicketModel[]>(result.Result).ToList();
                 }
             }
             catch (Exception ex)
@@ -28,7 +28,7 @@ namespace Thor.Service
                 throw;
             }
 
-            return users;
+            return tickets;
         }
     }
 }

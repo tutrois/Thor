@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -89,7 +89,7 @@
             <div class="table-responsive">
                 <table class="table m-0">
                     <thead>
-                        <tr>
+                        <tr style="text-align: center;">
                             <th>Número</th>
                             <th>Título</th>
                             <th>Status</th>
@@ -97,12 +97,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach(var item in Model.TicketsTable.OrderBy(i=>i.CreatedOn)){
+                        @foreach (var item in Model.TicketsTable.OrderBy(i => i.CreatedOn).Take(5))
+                        {
                             <tr>
-                                <td><a href="pages/examples/invoice.html">@Html.DisplayFor(modelItem => item.Id)</a></td>
-                                <td>@Html.DisplayFor(modelItem => item.Title)</td>
-                                <td><span class="badge @item.ColorStatus">@Html.DisplayFor(modelItem =>item.Status)</span></td>
-                                <td>
+                                <td style="text-align: center; width: 20%;">
+                                    <a href="pages/examples/invoice.html">@Html.DisplayFor(modelItem => item.Number)</a>
+                                </td>
+                                <td style="text-align: center; width: 40%;">@Html.DisplayFor(modelItem => item.Title)</td>
+                                <td style="text-align: center; width: 20%;"><span class="badge @item.ColorStatus">@Html.DisplayFor(modelItem =>item.Status)</span></td>
+                                <td style="text-align: center; width: 20%;">
                                     <div class="sparkbar" data-color="#00a65a" data-height="20">@Html.DisplayFor(modelItem => item.CreatedOn)</div>
                                 </td>
                             </tr>

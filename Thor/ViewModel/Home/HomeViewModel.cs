@@ -12,10 +12,11 @@
     public class TicketTableViewModel
     {
         public Guid Id { get; set; }
+        public int Number { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public Enums.StatusTicket Status { get; set; }
-        public DateTime CreatedOn { get; set; }
         public string ColorStatus { get; set; }
+        public DateTime CreatedOn { get; set; }
     }
 }

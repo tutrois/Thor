@@ -22,10 +22,11 @@ namespace Thor.Controllers
         public IActionResult Index()
         {
             var result = _ticketService.GetAll();
-            var TicketsTable = result.Select(i => new TicketTableViewModel()
+            var ticketsTable = result.Select(i => new TicketTableViewModel()
             {
                Id = i.Id,
-               Title = i.title,
+               Number = i.Number,
+               Title = i.Title,
                Status = i.Status,
                CreatedOn = i.CreatedOn,
                ColorStatus = convertStatusInColor(i.Status)
@@ -33,7 +34,7 @@ namespace Thor.Controllers
 
             var viewModel = new HomeViewModel()
             {
-                TicketsTable = TicketsTable,
+                TicketsTable = ticketsTable,
                 CountTicketsCompleted = result.Where(i => i.Status == Enums.StatusTicket.Concluido).Count(),
                 CountTicketsInProgess = result.Where(i => i.Status == Enums.StatusTicket.EmAndamento).Count(),
                 CountTicketsOpen = result.Where(i => i.Status == Enums.StatusTicket.Ativo).Count(),
