@@ -1,15 +1,15 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Thor.Service;
-using Thor.ViewModel.Ticket;
+using Thor.Services;
+using Thor.ViewModel;
 
 namespace Thor.Controllers
 {
     public class TicketsController : Controller
     {
-        private readonly ITicket _ticketService;
+        private readonly ITicketService _ticketService;
 
-        public TicketsController(ITicket ticketService)
+        public TicketsController(ITicketService ticketService)
         {
             _ticketService = ticketService;
 

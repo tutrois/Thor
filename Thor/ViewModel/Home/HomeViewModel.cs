@@ -1,4 +1,6 @@
-﻿namespace Thor.ViewModel.Ticket
+﻿using Thor.Data.Enums;
+
+namespace Thor.ViewModel
 {
     public class HomeViewModel
     {
@@ -15,7 +17,7 @@
         public int Number { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public Enums.StatusTicket Status { get; set; }
+        public StatusTicket Status { get; set; }
         public string ColorStatus { get; set; }
         public DateTime CreatedOn { get; set; }
     }

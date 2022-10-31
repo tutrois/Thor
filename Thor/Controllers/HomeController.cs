@@ -1,19 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using System.Diagnostics;
-using Thor.Models;
-using Thor.ViewModel.Ticket;
-using Thor.Helpes;
-using Thor.Service;
+using Thor.Services;
+using Thor.Data.Enums;
+using Thor.ViewModel;
 
 namespace Thor.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly ITicket _ticketService;
+        private readonly ITicketService _ticketService;
 
-        public HomeController(ILogger<HomeController> logger, ITicket ticketService)
+        public HomeController(ILogger<HomeController> logger, ITicketService ticketService)
         {
             _logger = logger;
             _ticketService = ticketService;
@@ -35,10 +33,10 @@ namespace Thor.Controllers
             var viewModel = new HomeViewModel()
             {
                 TicketsTable = ticketsTable,
-                CountTicketsCompleted = result.Where(i => i.Status == Enums.StatusTicket.Concluido).Count(),
-                CountTicketsInProgess = result.Where(i => i.Status == Enums.StatusTicket.EmAndamento).Count(),
-                CountTicketsOpen = result.Where(i => i.Status == Enums.StatusTicket.Ativo).Count(),
-                CountTicketsCanceled = result.Where(i => i.Status == Enums.StatusTicket.Cancelado).Count(),
+                CountTicketsCompleted = result.Where(i => i.Status == StatusTicket.Concluido).Count(),
+                CountTicketsInProgess = result.Where(i => i.Status == StatusTicket.EmAndamento).Count(),
+                CountTicketsOpen = result.Where(i => i.Status == StatusTicket.Ativo).Count(),
+                CountTicketsCanceled = result.Where(i => i.Status == StatusTicket.Cancelado).Count(),
             };
             return View(viewModel);
         }
@@ -54,14 +52,14 @@ namespace Thor.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        private string convertStatusInColor(Enums.StatusTicket status)
+        private string convertStatusInColor(StatusTicket status)
         {
-            var dictionary = new Dictionary<Enums.StatusTicket, Func<string>>()
+            var dictionary = new Dictionary<StatusTicket, Func<string>>()
             {
-                { Enums.StatusTicket.Ativo, () => "badge-success" },
-                { Enums.StatusTicket.EmAndamento, () => "badge-warning" },
-                { Enums.StatusTicket.Concluido, () => "badge-info" },
-                { Enums.StatusTicket.Cancelado, () => "badge-danger" },
+                { StatusTicket.Ativo, () => "badge-success" },
+                { StatusTicket.EmAndamento, () => "badge-warning" },
+                { StatusTicket.Concluido, () => "badge-info" },
+                { StatusTicket.Cancelado, () => "badge-danger" },
             };
             return dictionary[status]();
         }
