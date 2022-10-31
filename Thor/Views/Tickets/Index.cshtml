@@ -3,16 +3,13 @@
 @{
     ViewData["Title"] = "Chamados";
 }
-
-<p>
+@*
+<p class="disabled">
     <a asp-action="Create">Create New</a>
-</p>
+</p>*@
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Number)
             </th>
@@ -32,11 +29,8 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
+        @foreach (var item in Model) {
+            <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Number)
             </td>
@@ -52,11 +46,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.CreatedOn)
             </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
+            @*<td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */}, new {@class = "disabled"}) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }, new {@class = "disabled"}) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ }, new {@class = "disabled"})
+            </td>*@
         </tr>
 }
     </tbody>
