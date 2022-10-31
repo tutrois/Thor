@@ -1,11 +1,15 @@
 ﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
-using Thor.Models;
-using Thor.Service.Interfaces;
+using System.Threading.Tasks;
+using Thor.Data.Models;
 
-namespace Thor.Service
-{
-    public class TicketService : ITicket
+
+namespace Thor.Services 
+{ 
+    public class TicketService : ITicketService
     {
         private readonly string urlApi = "https://yggbrasil-odin.azurewebsites.net/api/Tickets";
 

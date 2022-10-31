@@ -1,5 +1,4 @@
-using Thor.Service;
-using Thor.Service.Interfaces;
+using Thor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 //Config Injeção de dependencia
-builder.Services.AddSingleton<ITicket, TicketService>();
+builder.Services.AddSingleton<ITicketService, TicketService>();
 
 var app = builder.Build();
 

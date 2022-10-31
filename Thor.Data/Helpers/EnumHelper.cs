@@ -1,8 +1,13 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Thor.Helpes
+namespace Thor.Data.Helpers
 {
-    public class EnumHelper
+    internal class EnumHelper
     {
         public static string GetDescription(System.Enum @enum)
         {

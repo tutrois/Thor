@@ -1,4 +1,4 @@
-namespace Thor.Models
+﻿namespace Thor.ViewModel
 {
     public class ErrorViewModel
     {
