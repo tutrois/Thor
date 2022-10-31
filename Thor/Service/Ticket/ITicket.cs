@@ -1,6 +1,6 @@
 ﻿using Thor.Models;
 
-namespace Thor.Service.Interfaces
+namespace Thor.Service
 {
     public interface ITicket
     {

@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.Text;
 using Thor.Models;
-using Thor.Service.Interfaces;
 
 namespace Thor.Service
 {

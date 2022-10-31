@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using Thor.Models;
-using Thor.Service.Interfaces;
 using Thor.ViewModel.Ticket;
 using Thor.Helpes;
+using Thor.Service;
 
 namespace Thor.Controllers
 {

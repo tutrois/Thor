@@ -1,5 +1,4 @@
 using Thor.Service;
-using Thor.Service.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 

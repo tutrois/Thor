@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Thor.Service.Interfaces;
+using Thor.Service;
 using Thor.ViewModel.Ticket;
 
 namespace Thor.Controllers
