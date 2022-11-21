@@ -1,0 +1,77 @@
+﻿@using Thor.Data.Enums
+@model Thor.Data.Models.TicketModel
+
+
+@{
+    ViewData["Title"] = $"Editando o Chamado N.º {Model.Number}";
+}
+
+<hr />
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card card-primary card-outline">
+                    <div class="card-body box-profile">
+                        <div class="text-center">
+                            <h3>Detalhes</h3>
+                        </div>
+                        <ul class="list-group list-group-unbordered mb-3">
+                            <li class="list-group-item">
+                                <b>Número: </b> <a class="float-right">@Model.Number</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Data de criação: </b> <a class="float-right">@Model.CreatedOn</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="tab-content">
+                            <div class="col-md-6">
+                                @using (Html.BeginForm("Edit", "Tickets", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                {
+                                    @Html.HiddenFor(m => m.Id)
+
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                    <div class="form-group">
+                                        <label asp-for="Title" class="control-label">Título</label>
+                                        <input asp-for="Title" class="form-control" disabled/>
+                                        <span asp-validation-for="Title" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="Description" class="control-label">Descrição</label>
+                                        <textarea asp-for="Description" class="form-control"
+                                                    data-val-required="A descrição é necessária."
+                                                    data-val-maxlength-max="1000"
+                                                    data-val-maxlength="O tamanho máximo de caracter é '1000'."
+                                                    data-val="true" disabled> </textarea>
+                                        <span asp-validation-for="Description" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group" data-select2-id="91">
+                                        <label>Status</label>
+                                        <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" asp-for="Status" asp-items="Html.GetEnumSelectList<StatusTicket>()"></select>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="submit" value="Editar" class="btn btn-primary" />
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="text-right">
+    <a asp-action="Index">Voltar</a>
+</div>
+
+
+<script src="/plugins/jquery/jquery.min.js"></script>
+<script src="@Url.Content("~/scripts/Ticket/Edit.js")"></script>

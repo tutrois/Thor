@@ -1,12 +1,8 @@
-﻿@model IEnumerable<Thor.Data.Models.TicketModel>
+﻿@model List<Thor.ViewModel.TicketTableViewModel>
 
 @{
     ViewData["Title"] = "Chamados";
 }
-@*
-<p class="disabled">
-    <a asp-action="Create">Create New</a>
-</p>*@
 
 <div class="card">
     <div class="card-body">
@@ -38,14 +34,14 @@
                                         @Html.DisplayFor(modelItem => item.Description)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Status)
-
+                                        <span class="badge @item.ColorStatus">@Html.DisplayFor(modelItem =>item.Status)</span>
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.CreatedOn)
                                     </td>
                                     <td>
-                                        <a href="@Url.Action("Details", "Tickets", new {  id = item.Id  })" class="small-box-footer">Detalhes  <i class="fas fa-arrow-circle-right"></i></a>
+                                        <a href="@Url.Action("Details", "Tickets", new { id = item.Id })" class="small-box-footer">Detalhes  <i class="fas fa-arrow-circle-right"></i></a> |
+                                        <a href="@Url.Action("Edit", "Tickets", new { id = item.Id })" class="small-box-footer">Editar  <i class="fas fa-arrow-circle-right"></i></a>
                                     </td>
                                 </tr>
                             }

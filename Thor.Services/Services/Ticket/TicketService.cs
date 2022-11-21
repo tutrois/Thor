@@ -2,6 +2,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 using Thor.Data.Models;
@@ -11,7 +12,7 @@ namespace Thor.Services
 { 
     public class TicketService : ITicketService
     {
-        private readonly string urlApi = "https://yggbrasil-odin.azurewebsites.net/api/Tickets";
+        private readonly string urlApi = "https://yggbrasil-odin.azurewebsites.net/api/Tickets/";
 
         public List<TicketModel> GetAll()
         {
@@ -54,6 +55,34 @@ namespace Thor.Services
             }
 
             return ticket;
+        }
+
+        public bool UpdateTicketStatus(TicketModel ticket)
+        {
+            try
+            {
+                using (var client = new HttpClient())
+                {
+
+
+                    string jsonObject = JsonConvert.SerializeObject(ticket);
+
+                    var content = new StringContent(jsonObject, Encoding.UTF8, "application/json");
+
+                    var path = Path.Combine($"{urlApi}",$"{ticket.Id}");
+                    var result = client.PostAsJsonAsync(path, content);
+                    result.Wait();
+                    var retorno = result.Result.Content.ReadAsStringAsync();
+                    var pro = JsonConvert.DeserializeObject<TicketModel>(retorno.Result);
+                }
+            }
+            catch (Exception ex)
+            {
+                var msg = ex.InnerException;
+                throw;
+            }
+
+            return true;
         }
     }
 }

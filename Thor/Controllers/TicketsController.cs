@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Thor.Data.Enums;
+using Thor.Data.Models;
 using Thor.Services;
 using Thor.ViewModel;
 
@@ -19,15 +21,40 @@ namespace Thor.Controllers
         public ActionResult Index()
         {
             var result = _ticketService.GetAll();
-          
-            return View(result);
+
+            var ticketsTable = result.Select(i => new TicketTableViewModel()
+            {
+                Id = i.Id,
+                Number = i.Number,
+                Title = i.Title,
+                Status = i.Status,
+                CreatedOn = i.CreatedOn,
+                Description = i.Description.Length <= 50 ? i.Description : i.Description.Substring(0, 50) +"...",
+                ColorStatus = convertStatusInColor(i.Status)
+            }).ToList();
+
+            return View(ticketsTable);
         }
 
         // GET: TicketsController/Details/5
         public ActionResult Details(Guid id)
         {
             var result = _ticketService.GetById(id);
+
             return View(result);
+        }
+
+        
+        private string convertStatusInColor(StatusTicket status)
+        {
+            var dictionary = new Dictionary<StatusTicket, Func<string>>()
+            {
+                { StatusTicket.Ativo, () => "badge-success" },
+                { StatusTicket.EmAndamento, () => "badge-warning" },
+                { StatusTicket.Concluido, () => "badge-info" },
+                { StatusTicket.Cancelado, () => "badge-danger" },
+            };
+            return dictionary[status]();
         }
 
         // GET: TicketsController/Create
@@ -52,25 +79,26 @@ namespace Thor.Controllers
         }
 
         // GET: TicketsController/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(Guid id)
         {
-            return View();
+            var result = _ticketService.GetById(id);
+
+            return View(result);
         }
 
         // POST: TicketsController/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(Guid Id, StatusTicket Status)
         {
-            try
+            var ticket = new TicketModel()
             {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+                Id = Id,
+                Status = Status
+            };
+            var result = _ticketService.UpdateTicketStatus(ticket);
+
+            return RedirectToAction(nameof(Index));
+    }
 
         // GET: TicketsController/Delete/5
         public ActionResult Delete(int id)

@@ -20,7 +20,7 @@ namespace Thor.Controllers
         public IActionResult Index()
         {
             var result = _ticketService.GetAll();
-            var ticketsTable = result.Select(i => new TicketTableViewModel()
+            var ticketsTable = result.Where(e => e.Status != StatusTicket.Cancelado && e.Status != StatusTicket.Concluido).Select(i => new TicketTableViewModel()
             {
                Id = i.Id,
                Number = i.Number,
