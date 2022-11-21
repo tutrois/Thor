@@ -24,9 +24,10 @@ namespace Thor.Controllers
         }
 
         // GET: TicketsController/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(Guid id)
         {
-            return View();
+            var result = _ticketService.GetById(id);
+            return View(result);
         }
 
         // GET: TicketsController/Create

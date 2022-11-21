@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +33,27 @@ namespace Thor.Services
             }
 
             return tickets;
+        }
+
+        public TicketModel GetById(Guid ticketId)
+        {
+            var ticket = new TicketModel();
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    var result = client.GetStringAsync($"{urlApi}{ticketId}");
+                    result.Wait();
+                    ticket = JsonConvert.DeserializeObject<TicketModel>(result.Result);
+                }
+            }
+            catch (Exception ex)
+            {
+                var msg = ex.InnerException;
+                throw;
+            }
+
+            return ticket;
         }
     }
 }

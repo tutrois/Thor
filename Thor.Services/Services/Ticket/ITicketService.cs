@@ -10,5 +10,6 @@ namespace Thor.Services
     public interface ITicketService
     {
         List<TicketModel> GetAll();
+        TicketModel GetById(Guid ticketId);
     }
 }
