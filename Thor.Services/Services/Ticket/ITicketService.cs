@@ -11,5 +11,6 @@ namespace Thor.Services
     {
         List<TicketModel> GetAll();
         TicketModel GetById(Guid ticketId);
+        bool UpdateTicketStatus(TicketModel ticket);
     }
 }
